@@ -16,7 +16,6 @@ public class Boj2583Bfs {
     private int[] dx = {0, 0, 1, -1};
     private int[] dy = {1, -1, 0, 0};
     private int[][] paper;
-    private boolean[][] visited;
     private int area;
     private List<Integer> areas = new ArrayList<Integer>();
     private Queue<Node> queue;
@@ -50,20 +49,19 @@ public class Boj2583Bfs {
 //        }
 
         int cnt = 0;
-        visited = new boolean[M][N];
 
         // 새로운 빈공간 찾기
         for (int j = 0; j < M; j++) {
             for (int i = 0; i < N; i++) {
                 if (
-                        !visited[j][i]
-                                && paper[j][i] == 0
+                        paper[j][i] == 0
                 ) {
                     // 새로운 빈공간 탐색을 위해 초기화
                     cnt++;
                     queue = new LinkedList<>();
                     queue.add(new Node(i, j));
-                    visited[j][i] = true;
+                    // 방문처리
+                    paper[j][i] = 1;
                     area = 1;
                     bfs(queue.poll());
                 }
@@ -85,10 +83,9 @@ public class Boj2583Bfs {
                     y + dy[i] < paper.length && y+ dy[i] >= 0
                     && x + dx[i] < paper[0].length && x + dx[i] >= 0
                     && paper[y + dy[i]][x + dx[i]] == 0
-                    && !visited[y + dy[i]][x + dx[i]]
             ) {
                 // 현재 노드에서 방문 가능한 노드가 있으면 모두 방문처리 후 queue에 담기
-                visited[y + dy[i]][x + dx[i]] = true;
+                paper[y + dy[i]][x + dx[i]] = 1;
                 // 방문할 때마다 해당 구역의 넓이 ++
                 area++;
                 queue.add(new Node(x + dx[i], y + dy[i]));

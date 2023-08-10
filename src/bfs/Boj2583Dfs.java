@@ -18,8 +18,6 @@ public class Boj2583Dfs {
     private int[] dy = {1, -1, 0, 0};
     // 문제 입력받을 판
     private int[][] paper;
-    // 방문여부 표시할 판
-    private boolean[][] visited;
     // 영역의 넓이 표시할 변수
     private int area;
     // 각 영역들 기록할 곳
@@ -50,20 +48,17 @@ public class Boj2583Dfs {
         }
 
         int cnt = 0;
-        visited = new boolean[M][N];
 
         // 새로운 빈공간 찾기
         for (int j = 0; j < M; j++) {
             for (int i = 0; i < N; i++) {
                 if (
-                        // 방문한적 없는 노드인지
-                        !visited[j][i]
                         // 비어있는 노드인지
-                        && paper[j][i] == 0
+                        paper[j][i] == 0
                 ) {
                     // 새로운 빈공간 탐색을 위해 초기화
                     cnt++;
-                    visited[j][i] = true;
+                    paper[j][i] = 1;
                     area = 1;
                     // dfs
                     dfs(new Node(i, j));
@@ -92,11 +87,9 @@ public class Boj2583Dfs {
                     && x + dx[i] < paper[0].length && x + dx[i] >= 0
                     // 검색할 노드가 비어 있는지
                     && paper[y + dy[i]][x + dx[i]] == 0
-                    // 방문한적 없는 노드인지
-                    && !visited[y + dy[i]][x + dx[i]]
             ) {
                 // 현재 노드에서 방문 가능한 노드가 있으면 방문처리
-                visited[y + dy[i]][x + dx[i]] = true;
+                paper[y + dy[i]][x + dx[i]] = 1;
                 // 방문할 때마다 해당 구역의 넓이 ++
                 area++;
                 // dfs
