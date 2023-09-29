@@ -16,6 +16,8 @@ public class Boj1926 {
     private static int area;
     private static int maxArea;
     private static int cnt;
+    private static int startRow;
+    private static int startCol;
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(reader.readLine(), " ");
@@ -50,9 +52,9 @@ public class Boj1926 {
             int Y = y + dy[i];
             if (
                     X >= 0 && X < map[0].length
-                            && Y >= 0 && Y < map.length
-                            && !visited[Y][X]
-                            && map[Y][X] == 1
+                    && Y >= 0 && Y < map.length
+                    && !visited[Y][X]
+                    && map[Y][X] == 1
             ){
                 dfs(X, Y);
             }
@@ -61,13 +63,15 @@ public class Boj1926 {
 
 
     private static int[] searchDrawing() {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
+        for (int i = startRow; i < map.length; i++) {
+            for (int j = (i == startRow ? startCol : 0); j < map[0].length; j++) {
                 if (
                         map[i][j] == 1
                         && !visited[i][j]
                 ) {
                     initP = new int[]{j, i};
+                    startRow = i;
+                    startCol = j;
                     return initP;
                 }
             }
