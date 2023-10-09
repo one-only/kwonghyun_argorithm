@@ -42,9 +42,13 @@ public class Boj5347 {
                     commonDivisors.add(primes[j]);
                 }
             }
-            BigInteger lcm = BigInteger.valueOf((long) a * b);
+//            BigInteger lcm = BigInteger.valueOf((long) a * b);
+//            for (Integer commonDivisor : commonDivisors) {
+//                lcm = lcm.multiply(BigInteger.valueOf(commonDivisor));
+//            }
+            long lcm = ( (long) a) * ((long) b);
             for (Integer commonDivisor : commonDivisors) {
-                lcm = lcm.multiply(BigInteger.valueOf(commonDivisor));
+                lcm *= commonDivisor;
             }
             System.out.println(lcm);
         }
